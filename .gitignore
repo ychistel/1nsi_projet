@@ -1,0 +1,5 @@
+/build
+/.vscode
+/source/.vscode
+/source/*/.ipynb_checkpoints
+/source/*/conf.py
