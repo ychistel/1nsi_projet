@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="fr" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Coder le jeu en Python &#8212; NSI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/translations.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/coder';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="next" title="Vérifier et afficher" href="verifier_afficher.html" />
+    <link rel="prev" title="Déroulement du jeu" href="scenariser.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="fr"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Passer au contenu principal</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">NSI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="scenariser.html">Déroulement du jeu</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Coder le jeu en Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="verifier_afficher.html">Vérifier et afficher</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Téléchargez cette page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/content/coder.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Télécharger le fichier source"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimer au format PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Mode plein écran"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="clair/sombre" aria-label="clair/sombre" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Recherche" aria-label="Recherche" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Coder le jeu en Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenu </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#les-fonctions">Les fonctions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-programme-principal">Le programme principal</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="coder-le-jeu-en-python">
+<h1>Coder le jeu en Python<a class="headerlink" href="#coder-le-jeu-en-python" title="Lien permanent vers cette rubrique">#</a></h1>
+<p>Une fois l’organigramme (graphe) du déroulement du jeu créé, il est temps de définir les variables, les fonctions et la structure du programme principal.</p>
+<section id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Lien permanent vers cette rubrique">#</a></h2>
+<ul class="simple">
+<li><p>On doit représenter la grille par un tableau de 9 valeurs. Chaque valeur peut être associée aux touches du clavier numérique.</p></li>
+<li><p>Le joueur doit être identifié pour savoir la forme du pion à poser. On prend une variable de type nombre entier.</p></li>
+<li><p>La fin de partie se produit dans 2 cas. Il n’y plus de case libre pour poser un pion ou un joueur a gagné la partie en alignant ses pions. Ces 2 variables sont de type booléen.</p></li>
+</ul>
+<p>On crée les 4 variables :</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">grille</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="c1"># grille de type tableau</span>
+<span class="n">joueur</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># nombre entier qui identifie le joueur</span>
+<span class="n">gagnant</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># booleen qui indique si un joueur a gagné</span>
+<span class="n">fin</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># booléen qui indique la fin de partie</span>
+</pre></div>
+</div>
+</section>
+<section id="les-fonctions">
+<h2>Les fonctions<a class="headerlink" href="#les-fonctions" title="Lien permanent vers cette rubrique">#</a></h2>
+<p>Certaines étapes du jeu sont traitées par des fonctions. Voici les principales fonctions à créer:</p>
+<ul>
+<li><p>La saisie d’un joueur doit être mémorisée et renvoyée au programme principal. La fonction <code class="docutils literal notranslate"><span class="pre">saisir(j)</span></code> attend une valeur comprise entre 1 et 9 correspondant à la case de la grille à recouvrir d’un pion. La fonction renvoie la valeur saisie. On donne la fonction ci-dessous:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">saisir</span><span class="p">(</span><span class="n">j</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Joueur </span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2"> joue&quot;</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Quelle case joues-tu ? &quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">c</span>
+</pre></div>
+</div>
+</li>
+<li><p>La grille se complète avec des pions posés par les 2 joueurs. Cela revient à ajouter la valeur “X” ou “O” selon le joueur dans la grille du jeu. Attention la valeur doit être ajoutée au bon endroit dans le tableau. On donne la première ligne de la fonction:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">completer_grille</span><span class="p">(</span><span class="n">grille</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    grille : tableau contenant la grille de jeu</span>
+<span class="sd">    j : identifian du joueur</span>
+<span class="sd">    c : case sur laquelle le pion est à poser</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+<li><p>Après chaque coup joué, il faut vérifier si les pions du joueur sont alignés. S’ils sont alignés, la partie est finie, sinon la partie se poursuit en changeant de joueur. La fonction <code class="docutils literal notranslate"><span class="pre">gagner_partie</span></code> renvoie un <code class="docutils literal notranslate"><span class="pre">booléen</span></code>. Elle renvoie <code class="docutils literal notranslate"><span class="pre">True</span></code> si la grille contient un alignement de pions et <code class="docutils literal notranslate"><span class="pre">False</span></code> dans le cas contraire.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gagner_partie</span><span class="p">(</span><span class="n">grille</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;</span>
+<span class="sd">    Teste si la grille contient des pions alignés. Elle renvoie un booléen True ou False selon les cas.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+<li><p>Après chaque coup joué, non gagnant, on doit vérifier si le joueur suivant peut jouer. Cela revient à vérifier que la grille peut accepter un pion. La fonction <code class="docutils literal notranslate"><span class="pre">fin_partie</span></code> renvoie un <code class="docutils literal notranslate"><span class="pre">booléen</span></code>. Elle renvoie <code class="docutils literal notranslate"><span class="pre">True</span></code> si le joueur suivant peut jouer et <code class="docutils literal notranslate"><span class="pre">False</span></code> dans le cas contraire.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fin_partie</span><span class="p">(</span><span class="n">grille</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;</span>
+<span class="sd">    Renvoie True si on peut ajouter &#39;X&#39; ou &#39;O&#39; dans la grille</span>
+<span class="sd">    Renvoie False dans le cas contraire.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>La fonction <code class="docutils literal notranslate"><span class="pre">changer</span></code> renvoie l’identifiant du prochain joueur qui doit jouer son pion.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">changer</span><span class="p">(</span><span class="n">j</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Renvoie l&#39;identifiant qui n&#39;est pas celui de j.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="le-programme-principal">
+<h2>Le programme principal<a class="headerlink" href="#le-programme-principal" title="Lien permanent vers cette rubrique">#</a></h2>
+<p>Une partie se déroule tant qu’elle est jouable et tant qu’il n’y a pas de vainqueur. Le programme principal tient en une boucle <code class="docutils literal notranslate"><span class="pre">while</span></code>.</p>
+<p>Dans cette boucle, le même scénario se répète :</p>
+<ul class="simple">
+<li><p>le joueur chosit une place dans la grille;</p></li>
+<li><p>on complète la grille avec le pion “X” ou “O” du joueur;</p></li>
+<li><p>on vérifie si le joueur a gagné</p></li>
+<li><p>si le joueur n’a pas gagné, on vérifie si on peut encore jouer sur la grille;</p></li>
+<li><p>si on peut encore jouer, on change de joueur et on continue la partie</p></li>
+</ul>
+<p>On quitte la boucle de jeu lorsqu’il y a un gagnant ou si la grille n’est plus jouable.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="scenariser.html"
+       title="page précédente">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">précédent</p>
+        <p class="prev-next-title">Déroulement du jeu</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="verifier_afficher.html"
+       title="page suivante">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">suivant</p>
+        <p class="prev-next-title">Vérifier et afficher</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenu
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables">Variables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#les-fonctions">Les fonctions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#le-programme-principal">Le programme principal</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Par Yannick Chistel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023,Yannick Chistel.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
