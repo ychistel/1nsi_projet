@@ -5,12 +5,15 @@
 def saisir(j):
     print(f"Joueur {j} joue")
     c = int(input("Quelle case joues-tu ? "))
-    return c
+    if 1 <= c <= 9:
+        return c
+    else:
+        return 0
 
 def completer_grille(grille,j,c):
-    if j == 1:
+    if j == 1 and grille[c-1] != 'O':
         grille[c-1] = 'X'
-    else:
+    elif j == 2 and grille[c-1] != 'X':
         grille[c-1] = 'O'
     return grille
         
@@ -32,7 +35,7 @@ def fin_partie(grille):
     for i in range(len(grille)):
         if grille[i] != 'X' and grille[i] != 'O':
             coups_a_jouer = coups_a_jouer + 1
-    if coups_a_jouer < 2:
+    if coups_a_jouer < 1:
         return True
     else:
         return False
@@ -104,18 +107,19 @@ if __name__ == '__main__':
     afficher_grille(grille)
 
     while not(fin) and not(gagnant):
-        case = saisir(joueur)
-        grille = completer_grille(grille,joueur,case)
-        afficher_grille(grille)
-        gagnant = gagner_partie(grille)
-        fin = fin_partie(grille)
-        if gagnant:
-            print(f"Le joueur {joueur} a gagné.")
-            fin = True
-        elif fin:
-            print("Fin de partie, pas de gagnant")
-            gagnant = True
-        else:
-            joueur = changer(joueur)
+        choix = saisir(joueur)
+        if choix !=0 and choix in grille:
+            grille = completer_grille(grille,joueur,choix)
+            afficher_grille(grille)
+            gagnant = gagner_partie(grille)
+            fin = fin_partie(grille)
+            if gagnant:
+                print(f"Le joueur {joueur} a gagné.")
+                fin = True
+            elif fin:
+                print("Fin de partie, pas de gagnant")
+                gagnant = True
+            else:
+                joueur = changer(joueur)
     
     

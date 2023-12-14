@@ -1,7 +1,7 @@
 Déroulement du jeu
 ------------------
 
-Le déroulement du jeu doit être réfléchi pour anticiper les différentes situations rencontrées dans une partie. On peu schématiser ce déroulement avec un **organigramme**. Un organigramme est un graphe (ensemble de rectangles reliés entre eux par des flèches) pour montrer les différentes étapes du déroulement du jeu. 
+Le déroulement du jeu doit être réfléchi pour anticiper les différentes situations rencontrées dans une partie. On peut schématiser ce déroulement avec un **organigramme**. Un organigramme est un graphe (ensemble de rectangles reliés entre eux par des flèches) pour montrer les différentes étapes du déroulement du jeu. 
 
 Chaque rectangle contient une action du joueur ou une étape du jeu. Cet organigramme permet de penser la structure du programme principal.
 
