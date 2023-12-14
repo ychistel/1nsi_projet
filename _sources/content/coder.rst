@@ -40,7 +40,7 @@ Certaines étapes du jeu sont traitées par des fonctions. Voici les principales
         def completer_grille(grille,j,c):
             """
             grille : tableau contenant la grille de jeu
-            j : identifian du joueur
+            j : identifiant du joueur
             c : case sur laquelle le pion est à poser
             """
             ...
